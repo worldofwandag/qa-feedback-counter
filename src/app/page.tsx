@@ -46,11 +46,19 @@ export default function Counter() {
     <div className="flex flex-col items-center justify-start min-h-screen bg-gray-50 p-8 pt-4">
       <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
         <h1 className="text-3xl font-bold text-center">QA task counter</h1>
-        <p className="text-xs text-center mb-3 text-gray-600">
+        <p className="text-xs text-center mb-1 text-gray-600">
           (pronounced KWA task counter)
         </p>
         <p className="text-xs text-center mb-4">
-          <b>click number to copy to clipboard</b>
+          <b>
+            click number to copy to clipboard and paste it in this{' '}  
+            <a className="text-blue-500"
+              href="https://docs.google.com/spreadsheets/d/1BFhhQLBxkAL40Bp02gzN9GstfVwyaVR4EMkgmjrF4kg/edit?usp=sharing"
+              target="_blank"
+            >
+              EXCEL
+            </a>
+          </b>
         </p>
 
         {/* Display Current Count */}
@@ -106,18 +114,20 @@ export default function Counter() {
             onClick={() => setIsAccordionOpen(!isAccordionOpen)}
             className="w-full p-4 text-left font-semibold flex justify-between items-center hover:bg-blue-100 transition-colors rounded"
           >
-            <span className="cursor-pointer">Kwa hint list: (click to see hints)</span>
+            <span className="cursor-pointer">
+              Kwa hint list: (click to see hints)
+            </span>
             <span className="text-lg cursor-pointer">
               {isAccordionOpen ? "−" : "+"}
             </span>
           </button>
-          
+
           {isAccordionOpen && (
             <div className="px-4 pb-4">
               <ul className="list-disc list-inside space-y-1 text-gray-700 text-xs">
                 <li>
-                  click the counter number to copy it to clipboard so can paste it
-                  into the excel sheet{" "}
+                  click the counter number to copy it to clipboard so can paste
+                  it into the excel sheet{" "}
                   <a
                     href="https://docs.google.com/spreadsheets/d/1BFhhQLBxkAL40Bp02gzN9GstfVwyaVR4EMkgmjrF4kg/edit?usp=sharing"
                     target="_blank"
@@ -126,14 +136,16 @@ export default function Counter() {
                   </a>{" "}
                 </li>
                 <li>
-                  if you accidentally reset, you can increase the step, to increment
-                  back to that number
+                  if you accidentally reset, you can increase the step, to
+                  increment back to that number
                 </li>
                 <li>
-                  if you accidentally clicked too much, you could always decrement
-                  back
+                  if you accidentally clicked too much, you could always
+                  decrement back
                 </li>
-                <li>step value controls how much is incremented / decremented</li>
+                <li>
+                  step value controls how much is incremented / decremented
+                </li>
                 <li>
                   urban landscape, Trader Juice, patches of vegetation, rolling
                   hills stretching in the horizon, fawk-it (facade)
@@ -152,15 +164,15 @@ export default function Counter() {
           </a>
         </div>
       </div>
-      
+
       {/* Toast Notifications */}
       <Toaster
         position="top-center"
         toastOptions={{
           duration: 2000,
           style: {
-            background: '#363636',
-            color: '#fff',
+            background: "#363636",
+            color: "#fff",
           },
         }}
       />
