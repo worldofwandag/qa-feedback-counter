@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 type Countercolor = "text-green-600" | "text-red-600" | "text-gray-800";
@@ -9,6 +9,7 @@ export default function Counter() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(1);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+  const [globalVisits, setGlobalVisits] = useState<number | null>(null);
 
   const handleDecrement = (): void => {
     setCount((prev) => prev - step);
@@ -41,6 +42,26 @@ export default function Counter() {
       toast.error("Failed to copy to clipboard");
     }
   };
+
+  // Fetch and increment global visit counter
+  useEffect(() => {
+    const fetchVisitCount = async () => {
+      try {
+        // Using CountAPI - a free counter service
+        const response = await fetch('https://api.countapi.xyz/hit/qa-feedback-counter.vercel.app/visits');
+        const data = await response.json();
+        setGlobalVisits(data.value);
+      } catch (error) {
+        console.error('Failed to fetch visit count:', error);
+        // Fallback to local storage if API fails
+        const localVisits = parseInt(localStorage.getItem('qaCounterVisits') || '0') + 1;
+        setGlobalVisits(localVisits);
+        localStorage.setItem('qaCounterVisits', localVisits.toString());
+      }
+    };
+
+    fetchVisitCount();
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen bg-gray-50 p-8 pt-4">
@@ -157,8 +178,14 @@ export default function Counter() {
           )}
         </div>
 
-        {/* Creator */}
-        <div className="flex justify-end mt-1 rounded text-xs">
+        {/* Bottom Row - Counter and Creator */}
+        <div className="flex justify-between items-center mt-1 text-xs">
+          {/* Global Visit Counter */}
+          <span className=" px-2 py-1 rounded text-blue-700  text-xs">
+            🌍 {globalVisits !== null ? globalVisits.toLocaleString() : '...'}
+          </span>
+          
+          {/* Creator */}
           <a href="https://coder-eta.vercel.app/" target="_blank">
             wandag
           </a>
